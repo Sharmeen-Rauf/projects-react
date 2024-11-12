@@ -10,6 +10,8 @@ function App() {
 
   //useRef hook
   const passwordRef = useRef(null)
+  const btncolor = useRef(null)
+
 
   const passwordGenerator = useCallback(() => {
     let pass = ""
@@ -32,6 +34,15 @@ function App() {
     passwordRef.current?.select();
     passwordRef.current?.setSelectionRange(0, 999);
     window.navigator.clipboard.writeText(password)
+
+     // Change button color to indicate success
+
+      btncolor.current.style.backgroundColor = "green";
+
+    // Revert color back to original after 1 second
+    setTimeout(() => {
+        btncolor.current.style.backgroundColor = "rgb(29 78 216)"; 
+    }, 1000);
   }, [password])
 
   useEffect(() => {
@@ -51,6 +62,7 @@ function App() {
             ref={passwordRef}
         />
         <button
+        ref={btncolor}
         onClick={copyPasswordToClipboard}
         className='outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0'
         >copy</button>
